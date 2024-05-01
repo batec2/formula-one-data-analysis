@@ -1,7 +1,9 @@
 import sql from "mssql";
 import dotenv from "dotenv";
 import { parse } from "csv-parse";
-import { readFile } from "node:fs/promises";
+import { createReadStream } from "node:fs";
+
+const fileName = "./f1-data/circuits.csv";
 
 dotenv.config();
 
@@ -15,24 +17,24 @@ const config = {
     trustServerCertificate: true,
   },
 };
-
-try {
-  const data = await readFile("./f1-data/circuits.csv", "utf8");
-  console.log(data);
-} catch (e) {
-  console.log(e);
-}
-
 const dataArray = [];
 
 const parser = parse({ delimiter: "," });
 parser.on("readable", () => {
-  const data = parser.read();
-  dataArray.push(data);
+  let data = parser.read();
+  while ((data = parser.read()) !== null) {
+    dataArray.push(data);
+  }
 });
 parser.on("error", (err) => {
   console.log(err);
 });
 parser.on("end", () => {
-  console.log(data);
+  console.log(dataArray);
 });
+// https://stackoverflow.com/questions/70556960/does-csv-parse-allow-you-to-read-from-file
+try {
+  createReadStream(fileName).pipe(parser);
+} catch (e) {
+  console.log(e);
+}
