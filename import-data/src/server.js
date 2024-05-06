@@ -2,6 +2,7 @@ import sql from "mssql";
 import dotenv from "dotenv";
 import { CsvToArray } from "./csv.js";
 import { parse } from "csv-parse";
+import { circuitsTable } from "./tables.js";
 
 const fileName = "./f1-data/circuits.csv";
 dotenv.config();
@@ -17,6 +18,15 @@ const config = {
   },
 };
 
-const csvToArray = new CsvToArray();
-const data = csvToArray.read(fileName);
-console.log(await data);
+const insertData = async (fileName, tableFunction) => {
+  const csvToArray = new CsvToArray();
+  const data = await csvToArray.read(fileName);
+  const table = tableFunction();
+  for (let i = 1; i < data.length; i++) {
+    // console.log(data[i]);
+    table.rows.add(...data[i]);
+  }
+  console.log(table);
+};
+
+insertData(fileName, circuitsTable);

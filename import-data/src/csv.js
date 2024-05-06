@@ -26,8 +26,12 @@ export class CsvToArray {
     return this.dataArray;
   }
 
+  /**
+   * Takes in a csv filename and puts data into an array
+   * @param {String} fileName
+   * @returns {Promise} Promise Resolving into array
+   */
   read = async (fileName) => {
-    // https://stackoverflow.com/questions/70556960/does-csv-parse-allow-you-to-read-from-file
     return new Promise((resolve, reject) => {
       try {
         createReadStream(fileName)
@@ -43,9 +47,14 @@ export class CsvToArray {
     });
   };
 
+  /**
+   * Clears object array
+   */
   clear = () => {
     this.dataArray = [];
   };
 }
 
+/* ----------------------References------------------------------ */
 // https://stackoverflow.com/questions/58431076/how-to-use-async-await-with-fs-createreadstream-in-node-js
+// https://stackoverflow.com/questions/70556960/does-csv-parse-allow-you-to-read-from-file
