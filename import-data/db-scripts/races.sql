@@ -1,0 +1,21 @@
+DROP TABLE races;
+CREATE TABLE races(
+  raceId,
+  year,
+  round,
+  circuitId,
+  name,
+  date,
+  time,
+  url,
+  fp1_date,
+  fp1_time,
+  fp2_date,
+  fp2_time,
+  fp3_date,
+  fp3_time,
+  quali_date,
+  quali_time,
+  sprint_date,
+  sprint_time,
+);

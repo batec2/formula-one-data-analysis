@@ -5,11 +5,12 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node ./src/server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@batec2/csvtodb": "^1.0.3",
     "csv-parse": "^5.5.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
